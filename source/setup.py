@@ -1,12 +1,14 @@
 #!/usr/bin/env python
+# pip workaround (see: https://github.com/pypa/pip/issues/1979)
+import os
+os.chdir(os.path.abspath(os.path.dirname(__file__)))
+
 try:
     from setuptools import setup, find_packages
 except:
     from ez_setup import use_setuptools
     use_setuptools()
     from setuptools import setup, find_packages
-
-import os
 import os.path
 
 import sys
