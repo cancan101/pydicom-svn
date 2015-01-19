@@ -386,9 +386,11 @@ class Dataset(dict):
         else:
             if self.SamplesPerPixel > 1:
                 if self.BitsAllocated == 8:
-                    #TODO: Handle Planar Configuration attribute
-                    assert self.PlanarConfiguration==0
-                    arr = arr.reshape(self.Rows, self.Columns, self.SamplesPerPixel)
+                    if self.PlanarConfiguration == 0:
+                        arr = arr.reshape(self.Rows, self.Columns, self.SamplesPerPixel)
+                    else:
+                        arr = arr.reshape(self.SamplesPerPixel, self.Rows, self.Columns)
+                        arr = arr.transpose(1, 2, 0)
                 else:
                     raise NotImplementedError("This code only handles SamplesPerPixel > 1 if Bits Allocated = 8")
             else:
